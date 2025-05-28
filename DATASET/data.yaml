@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ["KACAMATA", "KEPALA", "TOPI"]
+
+roboflow:
+  workspace: ken-6yls5
+  project: hatdetection-xcrsq
+  version: 2
+  license: MIT
+  url: https://universe.roboflow.com/ken-6yls5/hatdetection-xcrsq/dataset/2
