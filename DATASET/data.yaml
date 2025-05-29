@@ -3,7 +3,7 @@ val: ../valid/images
 test: ../test/images
 
 nc: 3
-names: ["KACAMATA", "KEPALA", "TOPI"]
+names: ['KACAMATA', 'KEPALA', 'TOPI']
 
 roboflow:
   workspace: ken-6yls5

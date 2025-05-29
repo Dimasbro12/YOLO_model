@@ -11,13 +11,17 @@ class DistributionFocalLoss(nn.Module):
     def forward(self, pred_logits, target):
         device = pred_logits.device
         self.bin_vals = self.bin_vals.to(device)
+
         pred_probs = F.softmax(pred_logits, dim=-1)  # (N, 4, num_bins)
         target_left = target.floor().long()
         target_right = target_left + 1
+
         weight_right = target - target_left.float()
         weight_left = 1.0 - weight_right
+
         target_left = target_left.clamp(0, self.num_bins - 1)
         target_right = target_right.clamp(0, self.num_bins - 1)
+
         loss = 0.0
         for i in range(4):
             prob = pred_probs[:, i]  # (N, num_bins)
@@ -25,10 +29,13 @@ class DistributionFocalLoss(nn.Module):
             right_idx = target_right[:, i]
             wl = weight_left[:, i]
             wr = weight_right[:, i]
+
             left_prob = prob[torch.arange(len(prob)), left_idx]
             right_prob = prob[torch.arange(len(prob)), right_idx]
+
             loss_i = -torch.log(left_prob + 1e-6) * wl - torch.log(right_prob + 1e-6) * wr
             loss += loss_i.mean()
+
         return loss / 4
 
 class YOLOv8Loss(nn.Module):

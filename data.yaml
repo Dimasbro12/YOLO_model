@@ -5,6 +5,31 @@ test: ../test/images
 nc: 3
 names: ['KACAMATA', 'KEPALA', 'TOPI']
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 roboflow:
   workspace: ken-6yls5
   project: hatdetection-xcrsq

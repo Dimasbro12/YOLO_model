@@ -9,8 +9,10 @@ from yolo_model import YoloTiny
 from dataset import VOCDataset
 from loss import YOLOv8Loss
 from utils import (
+    non_max_suppression,
     mean_average_precision,
     get_bboxes,
+    plot_image,
     save_checkpoint,
     load_checkpoint,
 )
@@ -27,7 +29,7 @@ EPOCHS = 50
 NUM_WORKERS = 2
 PIN_MEMORY = False
 LOAD_MODEL = False
-LOAD_MODEL_FILE = "iki.pt"
+LOAD_MODEL_FILE = "best.pt"
 IMG_DIR = "DATASET/train/images"
 LABEL_DIR = "DATASET/train/labels"
 NUM_CLASSES = 20
@@ -123,7 +125,7 @@ def main():
         drop_last=True,
     )
 
-    best_map = 0.6
+    best_map = 0.0
     for epoch in range(EPOCHS):
         model.eval()
         with torch.no_grad():
